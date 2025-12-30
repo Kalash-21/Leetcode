@@ -1,0 +1,12 @@
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        h={}
+        for i in range(len(nums)):
+            h[nums[i]]=i
+
+        for i in range(len(nums)):
+            x=target-nums[i]
+
+            if x in h and h[x]!=i:
+                return [i, h[x]]        
+        
