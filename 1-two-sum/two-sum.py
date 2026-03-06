@@ -1,10 +1,10 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        h={}
+        hashmap={}
         for i in range(len(nums)):
-            n=nums[i]
-            diff=target-nums[i]
-            if diff in h :
-                return [h[diff],i]
+            sum_i=target-nums[i]
+            if sum_i in hashmap:
+                return [hashmap[sum_i],i]
             else:
-                h[n]=i
+                hashmap[nums[i]]=i
+            
