@@ -1,20 +1,25 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        product = 1
-        zero_count = 0
-        for x in nums:
-            if x == 0:
-                zero_count += 1
-            else:
-                product *= x
+        a = []
+        p = 1
+        counter = 0
 
-        res = []
-        for x in nums:
-            if zero_count >= 2:
-                res.append(0)
-            elif zero_count == 1:
-                res.append(product if x == 0 else 0)
+        for num in nums:
+            if num == 0:
+                counter += 1
+                if counter == 2:
+                    return [0] * len(nums)
             else:
-                res.append(product // x)
-        return res
-        
+                p = p * num
+
+        if counter == 1:
+            for num in nums:
+                if num == 0:
+                    a.append(p)
+                else:
+                    a.append(0)
+        else:
+            for num in nums:
+                a.append(p // num)
+
+        return a
