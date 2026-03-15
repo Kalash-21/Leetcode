@@ -1,17 +1,19 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagrams_dict = {}
+        result = {}
 
-        for s in strs:
+        for word in strs:
             count = [0] * 26
-            for c in s:
-                count[ord(c) - ord('a')] += 1
+
+            for char in word:
+                index = ord(char) - ord('a')
+                count[index] += 1
 
             key = tuple(count)
 
-            if key not in anagrams_dict:
-                anagrams_dict[key] = []
+            if key not in result:
+                result[key] = []
 
-            anagrams_dict[key].append(s)
+            result[key].append(word)
 
-        return list(anagrams_dict.values())
+        return list(result.values())
