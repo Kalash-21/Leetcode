@@ -1,32 +1,25 @@
 class Solution:
-    def divide_merge(self,A):
-        if len(A)<=1:
-            return A
-        else:
-            mid=len(A)//2
-            L=self.divide_merge(A[0:mid])
-            R=self.divide_merge(A[mid:])
-            return self.merge_sort(L,R)
-        
-    def merge_sort(self,L,R):
-        i=0
-        j=0
-        out=[]
-        while i < len(L) and j < len(R):
-            if L[i]<=R[j]:
-                out.append(L[i])
+    def merge(self,left,right):
+        i=j=0
+        result =[]
+        while i<len(left) and j < len(right):
+            if left[i]<=right[j]:
+                result.append(left[i])
                 i+=1
             else:
-                out.append(R[j])
+                result.append(right[j])
                 j+=1
-        while i<len(L):
-            out.append(L[i])
-            i+=1
-        while j<len(R):
-            out.append(R[j])
-            j+=1
-        return out 
+        result.extend(left[i:])
+        result.extend(right[j:])
+        return result
 
     def sortArray(self, nums: List[int]) -> List[int]:
-        return self.divide_merge(nums)
+        if len(nums)<=1:
+            return nums
+        mid = len(nums)//2
+        left = self.sortArray(nums[0:mid])
+        right = self.sortArray(nums[mid:])
+        return self.merge(left,right)
+
+    
         
