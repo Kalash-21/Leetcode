@@ -1,18 +1,16 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefixsum = 0
-        freq = {0: 1}
-        count = 0
-
+        running_total = 0
+        result = 0
+        check = {0: 1}  
         for num in nums:
-            prefixsum = prefixsum + num
-            
-            if prefixsum - k in freq:
-                count = count + freq[prefixsum - k]
-            
-            if prefixsum in freq:
-                freq[prefixsum] = freq[prefixsum] + 1
-            else:
-                freq[prefixsum] = 1
+            running_total += num
 
-        return count
+            if (running_total - k) in check:
+                result += check[running_total - k]
+            if running_total in check:
+                check[running_total] += 1
+            else:
+                check[running_total] = 1
+
+        return result
