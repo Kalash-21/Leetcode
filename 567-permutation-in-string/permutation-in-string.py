@@ -1,40 +1,19 @@
 class Solution:
     def checkInclusion(self, s1: str, s2: str) -> bool:
-        if len(s1) > len(s2):
-            return False
-
-        hashtable1 = {}
-        for char in s1:
-            if char in hashtable1:
-                hashtable1[char] += 1
-            else:
-                hashtable1[char] = 1
-
-        hashtable2 = {}
-        k = len(s1)
-
-        for i in range(k):
-            if s2[i] in hashtable2:
-                hashtable2[s2[i]] += 1
-            else:
-                hashtable2[s2[i]] = 1
-
-        if hashtable1 == hashtable2:
-            return True
-
-        for i in range(k, len(s2)):
-            if s2[i] in hashtable2:
-                hashtable2[s2[i]] += 1
-            else:
-                hashtable2[s2[i]] = 1
-
-            out = s2[i - k]
-            if hashtable2[out] == 1:
-                del hashtable2[out]
-            else:
-                hashtable2[out] -= 1
-
-            if hashtable1 == hashtable2:
+        count1={}
+        for s in s1:
+            count1[s]=1+ count1.get(s,0)
+        
+        l = 0
+        count2={}
+        for r in range(0, len(s2)):
+            count2[s2[r]] = 1 + count2.get(s2[r], 0)
+            
+            while (r-l+1)> len(s1):
+                count2[s2[l]]-=1
+                if count2[s2[l]] == 0:
+                    del count2[s2[l]]
+                l+=1
+            if count1==count2:
                 return True
-
         return False
