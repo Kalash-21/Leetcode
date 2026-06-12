@@ -1,10 +1,12 @@
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
-        hashmap={}
-        for i in range(len(nums)):
-            if nums[i] in hashmap:
-                if abs(hashmap[nums[i]]-i)<=k:
-                    return True 
-            hashmap[nums[i]]=i
-        return False
+        window = set()
         
+        for i, num in enumerate(nums):
+            if num in window:
+                return True
+            window.add(num)
+            if len(window) > k:
+                window.remove(nums[i - k])  # shrink window from left
+        
+        return False
